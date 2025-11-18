@@ -1,0 +1,5 @@
+# node dependency
+node_modules/
+
+# temporary files
+tmp/
