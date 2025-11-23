@@ -1,0 +1,41 @@
+/* ====================
+  Header
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.header__nav {
+  @include flex-center-space-between;
+  padding: 5px 20px;
+}
+
+.header__nav a {
+  font-weight: bold;
+  color: $dark-blue;
+}
+
+.header__nav a.router-link-exact-active {
+  color: $light-green;
+}
+
+.header__logo {
+  @include flex-align-center;
+}
+
+.header__logo-image {
+  width: 200px;
+  max-width: 100%;
+}
+
+.header__nav-item {
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.header__nav-item i {
+  margin-right: 0.3rem;
+}
+
+.header__nav-item:hover {
+  text-decoration: underline;
+}
