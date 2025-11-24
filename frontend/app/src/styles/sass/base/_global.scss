@@ -5,8 +5,11 @@
 @use "../abstracts/mixins" as *;
 
 body {
-  @include flex-column;
   margin: 0;
+}
+
+#root {
+  @include flex-column;
   min-height: 100vh;
 }
 
@@ -15,7 +18,7 @@ body {
 }
 
 .bg-dark {
-  background-color: $black;
+  background-color: $dark-violet;
 }
 
 .sr-only {

@@ -1,0 +1,49 @@
+/* ====================
+  Sign In Form
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.sign-in__content {
+  box-sizing: border-box;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: $white;
+}
+
+.input-wrapper {
+  @include flex-column;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.input-wrapper label {
+  font-weight: bold;
+}
+
+.input-wrapper input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.input-remember {
+  display: flex;
+}
+
+.input-remember label {
+  margin-left: 0.25rem;
+}
+
+.sign-in-button {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: $white;
+  border-color: $green;
+  background-color: $green;
+}
