@@ -1,0 +1,34 @@
+/* ====================
+  Features
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.features {
+  @include flex-column;
+}
+
+@media (min-width: 920px) {
+  .features {
+    flex-direction: row;
+  }
+}
+
+.feature__item {
+  flex: 1;
+  padding: 2.5rem;
+}
+
+.feature__icon {
+  width: 100px;
+  padding: 1rem;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+}
+
+.feature__title {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: $light-black;
+}

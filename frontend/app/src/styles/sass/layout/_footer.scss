@@ -1,0 +1,16 @@
+/* ====================
+  Footer
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.footer {
+  @include flex-justify-center;
+  padding: 2rem 0 1.5rem;
+  border-top: 2px solid $grey;
+}
+
+.footer__text {
+  margin: 0;
+  padding: 0;
+}

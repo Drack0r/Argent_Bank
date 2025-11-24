@@ -3,14 +3,17 @@
 @use "./abstracts/mixins";
 
 // Base
-@use "./base/reset";
+// @use "./base/reset";
 @use "./base/global";
 @use "./base/typography";
 
 // Components
+@use "./components/hero";
+@use "./components/features";
 
 // Layout
 @use "./layout/header";
+@use "./layout/footer";
 
 // Pages
 

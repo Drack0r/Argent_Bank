@@ -1,7 +1,11 @@
+import { Hero, Features } from "../../components/sections/";
+
 function HomePage() {
   return (
     <>
-      <h1>Home Page</h1>
+      <Hero />
+
+      <Features />
     </>
   );
 }

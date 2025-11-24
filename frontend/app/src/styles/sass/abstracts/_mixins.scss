@@ -11,8 +11,16 @@
   display: flex;
   align-items: center;
 }
+@mixin flex-justify-center {
+  display: flex;
+  justify-content: center;
+}
 @mixin flex-center-space-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }

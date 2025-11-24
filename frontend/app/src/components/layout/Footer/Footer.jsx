@@ -1,7 +1,9 @@
+import { getCurrentYear } from "../../../utils";
+
 function Footer() {
   return (
     <footer className="footer">
-      <h2>Footer</h2>
+      <p className="footer__text">Copyright {getCurrentYear()} Argent Bank</p>
     </footer>
   );
 }

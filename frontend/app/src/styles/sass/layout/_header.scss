@@ -22,20 +22,20 @@
   @include flex-align-center;
 }
 
-.header__logo-image {
+.header__logo img {
   width: 200px;
   max-width: 100%;
 }
 
-.header__nav-item {
+.header__action {
   margin-right: 0.5rem;
   text-decoration: none;
 }
 
-.header__nav-item i {
+.header__action i {
   margin-right: 0.3rem;
 }
 
-.header__nav-item:hover {
+.header__action:hover {
   text-decoration: underline;
 }
