@@ -1,0 +1,54 @@
+/* ====================
+  Account Card
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.account {
+  @include flex-center-space-between;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  text-align: left;
+  background-color: $white;
+  border: 1px solid $black;
+  box-sizing: border-box;
+}
+
+.account-amount {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.account-amount-description {
+  margin: 0;
+}
+
+.account-title {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.account-content-wrapper {
+  flex: 1;
+  width: 100%;
+}
+
+@media (min-width: 720px) {
+  .account {
+    flex-direction: row;
+  }
+
+  .account-content-wrapper.cta {
+    flex: 0;
+  }
+
+  .transaction-button {
+    width: 200px;
+  }
+}

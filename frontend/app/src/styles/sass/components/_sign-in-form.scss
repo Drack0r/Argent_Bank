@@ -5,12 +5,12 @@
 @use "../abstracts/mixins" as *;
 
 .sign-in__content {
-  box-sizing: border-box;
   width: 300px;
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
   background-color: $white;
+  box-sizing: border-box;
 }
 
 .input-wrapper {
@@ -44,6 +44,6 @@
   font-size: 1.1rem;
   font-weight: bold;
   color: $white;
-  border-color: $green;
   background-color: $green;
+  border-color: $green;
 }

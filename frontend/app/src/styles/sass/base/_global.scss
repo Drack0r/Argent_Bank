@@ -21,6 +21,11 @@ body {
   background-color: $dark-violet;
 }
 
+.title {
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
 .sr-only {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
