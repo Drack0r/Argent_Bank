@@ -26,6 +26,10 @@ body {
   margin-bottom: 2rem;
 }
 
+.error {
+  color: $red;
+}
+
 .sr-only {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */

@@ -1,5 +1,5 @@
-import { usePageClass } from "../../hooks";
 import { Button, AccountCard } from "../../components/ui";
+import usePageClass from "../../hooks/usePageClass";
 
 function UserPage() {
   usePageClass("bg-dark");

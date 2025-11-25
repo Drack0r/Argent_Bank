@@ -1,9 +1,8 @@
-import { usePageClass } from "../../hooks";
 import { SignInForm } from "../../components/sections";
+import usePageClass from "../../hooks/usePageClass";
 
 function SignInPage() {
   usePageClass("bg-dark");
-
   return (
     <>
       <section className="sign-in__content">
