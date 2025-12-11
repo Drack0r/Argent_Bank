@@ -1,4 +1,4 @@
-import { Header, Footer } from ".";
+import { Header, Footer } from "..";
 
 function Layout({ children }) {
   return (

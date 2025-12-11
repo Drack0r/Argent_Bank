@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-function AuthButton({ label, isSignOut = false, isUser = false }) {
+function AuthButton({ label, isSignOut = false, isUser = false, onClick }) {
   if (isSignOut) {
     return (
-      <Link className="header__action" to="/">
+      <button className="header__action" onClick={onClick}>
         <i className="fa fa-sign-out"></i>
 
         <span>{label}</span>
-      </Link>
+      </button>
     );
   }
 

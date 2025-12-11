@@ -1,3 +1,3 @@
-export { default as Header } from "./Header";
-export { default as Footer } from "./Footer";
-export { default as Layout } from "./Layout.jsx";
+export { default as Header } from "./Header/Header.jsx";
+export { default as Footer } from "./Footer/Footer.jsx";
+export { default as Layout } from "./Layout/Layout.jsx";

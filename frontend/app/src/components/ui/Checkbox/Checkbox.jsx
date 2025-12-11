@@ -1,7 +1,7 @@
-function Checkbox({ id, className, label }) {
+function Checkbox({ id, className, label, checked }) {
   return (
     <div className={className}>
-      <input type="checkbox" id={id} />
+      <input type="checkbox" id={id} checked={checked} />
 
       <label htmlFor={id}>{label}</label>
     </div>

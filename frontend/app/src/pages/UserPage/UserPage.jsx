@@ -1,8 +1,12 @@
-import { Button, AccountCard } from "../../components/ui";
+import { useSelector, useDispatch } from "react-redux";
 import usePageClass from "../../hooks/usePageClass";
+import { Button, AccountCard } from "../../components/ui";
 
 function UserPage() {
   usePageClass("bg-dark");
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -10,7 +14,7 @@ function UserPage() {
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {user?.firstName} {user?.lastName}!
         </h1>
 
         <Button
