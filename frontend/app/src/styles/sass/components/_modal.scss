@@ -1,0 +1,113 @@
+/* ====================
+  Modal
+==================== */
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.edit-modal {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 400px;
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: 2rem;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    font-size: 1rem;
+    background: none;
+    border: none;
+  }
+
+  .edit-form {
+    @include flex-column-align-center;
+    gap: 1rem;
+
+    h2 {
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      margin-left: 0.5em;
+      padding: 0.3em 0;
+      padding-left: 0.4em;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid $grey;
+      border-radius: 5px;
+
+      &:disabled {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .field-error {
+    color: $red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+
+  input.error {
+    border-color: $red;
+    background-color: rgba(254, 61, 61, 0.1);
+  }
+
+  .modal__actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: $grey;
+
+    &:hover {
+      background: $grey;
+    }
+  }
+}
+
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal__actions {
+  @include flex-align-center;
+  gap: 1em;
+  margin-top: 2em;
+
+  & button {
+    padding: 1em 4em;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $white;
+    background: $light-green;
+    border: none;
+    border-radius: 5px;
+
+    &:hover {
+      background: darken($light-green, 20);
+    }
+
+    &:active {
+      background: lighten($light-green, 20);
+    }
+  }
+}

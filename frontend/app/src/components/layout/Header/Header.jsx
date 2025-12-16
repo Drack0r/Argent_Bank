@@ -28,7 +28,7 @@ function Header() {
           {!isAuthenticated && <AuthButton label={"Sign In"} />}
 
           {isAuthenticated && (
-            <AuthButton label={user?.firstName || "User"} isUser={true} />
+            <AuthButton label={user?.userName || "User"} isUser={true} />
           )}
 
           {isAuthenticated && (

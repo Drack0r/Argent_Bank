@@ -57,3 +57,30 @@ export async function fetchUserProfile(token) {
     throw new Error("Network error: " + error.message);
   }
 }
+
+// Mettre à jour le profil utilisateur
+export async function updateUserProfile(token, userData) {
+  try {
+    const response = await fetch(API_ENDPOINTS.USER.UPDATE_PROFILE, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Update profile failed");
+    }
+
+    return data.body;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Network error: " + error.message);
+  }
+}

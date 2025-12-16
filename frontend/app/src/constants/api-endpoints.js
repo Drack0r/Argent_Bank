@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   },
   USER: {
     PROFILE: `${BASE_URL}/user/profile`,
+    UPDATE_PROFILE: `${BASE_URL}/user/profile`,
   },
 };
 

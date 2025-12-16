@@ -5,12 +5,18 @@ function Button({
   isButton = false,
   href,
   children,
-  buttonType,
+  buttonType = "button",
+  onClick,
   disabled,
 }) {
   if (isButton) {
     return (
-      <button type={buttonType} className={className} disabled={disabled}>
+      <button
+        type={buttonType}
+        className={className}
+        onClick={onClick}
+        disabled={disabled}
+      >
         {children}
       </button>
     );
