@@ -1,10 +1,15 @@
 import { FeatureItem } from "../../ui";
 
+/**
+ * Features component that displays a section with three feature items highlighting the main benefits of the service
+ */
 function Features() {
   return (
     <section className="features">
+      {/* Screen reader only heading for accessibility */}
       <h2 className="sr-only">Features</h2>
 
+      {/* Customer support feature */}
       <FeatureItem
         iconSrc={"/images/icon-chat.png"}
         iconAlt={"Chat Icon"}
@@ -14,6 +19,7 @@ function Features() {
         }
       />
 
+      {/* Savings and interest rates feature */}
       <FeatureItem
         iconSrc={"/images/icon-money.png"}
         iconAlt={"Money Icon"}
@@ -23,6 +29,7 @@ function Features() {
         }
       />
 
+      {/* Security feature */}
       <FeatureItem
         iconSrc={"/images/icon-security.png"}
         iconAlt={"Security Icon"}

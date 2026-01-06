@@ -7,18 +7,26 @@ import useFormValidation from "../../hooks/useFormValidation";
 import { userNameValidationRules } from "../../utils";
 import { Button, AccountCard, Input } from "../../components/ui";
 
+// Set the app element for react-modal accessibility
 Modal.setAppElement("#root");
 
+/**
+ * UserPage component - displays user profile information and account details
+ * Includes functionality to edit username via modal
+ * @returns {JSX.Element} User dashboard with profile edit modal and account cards
+ */
 function UserPage() {
+  // State to control modal visibility
   const [isOpen, setIsOpen] = useState(false);
-  // const [userName, setUserName] = useState("");
 
+  // Apply dark background class to the page
   usePageClass("bg-dark");
 
+  // Redux hooks for state management and actions
   const dispatch = useDispatch();
   const { user, token, isLoading, error } = useSelector((state) => state.auth);
 
-  // Hook de validation
+  // Custom hook for form validation with userName field
   const {
     values,
     errors,
@@ -30,32 +38,36 @@ function UserPage() {
     setValues,
   } = useFormValidation({ userName: "" }, userNameValidationRules);
 
+  // Open modal and initialize form with current user data
   const openModal = () => {
     setValues({ userName: user?.userName || "" });
-    dispatch(clearError());
+    dispatch(clearError()); // Clear any previous errors
     setIsOpen(true);
   };
 
+  // Close modal and reset form
   const closeModal = () => {
     setIsOpen(false);
     setValues({ userName: "" });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérifier la validité avant soumission
+    // Validate all form fields
     const formIsValid = validateAll();
     if (!formIsValid) {
       return;
     }
 
-    // Vérifier si le nom a changé
+    // If username hasn't changed, just close the modal
     if (values.userName === user?.userName) {
       closeModal();
       return;
     }
 
+    // Dispatch update action with new username
     const result = await dispatch(
       updateUserProfileAsync({
         token,
@@ -63,22 +75,26 @@ function UserPage() {
       })
     );
 
+    // Close modal on successful update
     if (updateUserProfileAsync.fulfilled.match(result)) {
       closeModal();
     }
   };
 
+  // Handle input value changes
   const handleInputChange = (e) => {
     const { value } = e.target;
     setValue("userName", value);
   };
 
+  // Mark field as touched when user leaves input
   const handleInputBlur = () => {
     setFieldTouched("userName");
   };
 
   return (
     <>
+      {/* Welcome section with user name and edit button */}
       <div className="title">
         <h1>
           Welcome back
@@ -86,13 +102,12 @@ function UserPage() {
           {user?.firstName} {user?.lastName}!
         </h1>
 
-        <Button
-          isButton={true}
-          className={"edit-button"}
-          children={"Edit Name"}
-          onClick={openModal}
-        />
+        {/* Button to open edit modal */}
+        <Button isButton={true} className={"edit-button"} onClick={openModal}>
+          Edit Name
+        </Button>
 
+        {/* Modal for editing user information */}
         <Modal
           isOpen={isOpen}
           onRequestClose={closeModal}
@@ -100,13 +115,16 @@ function UserPage() {
           className="edit-modal"
           overlayClassName="edit-modal-overlay"
         >
+          {/* Close button for modal */}
           <Button isButton className={"close-button"} onClick={closeModal}>
             <i className="fa-solid fa-xmark"></i>
           </Button>
 
+          {/* Edit form */}
           <form className="edit-form" onSubmit={handleSubmit}>
             <h2>Edit user info</h2>
 
+            {/* Editable username input with validation */}
             <div className="input-group">
               <Input
                 id={"userName"}
@@ -120,11 +138,13 @@ function UserPage() {
                 autoFocus={true}
                 required
               />
+              {/* Display validation error if any */}
               {errors.userName && touched.userName && (
                 <p className="field-error">{errors.userName}</p>
               )}
             </div>
 
+            {/* Read-only first name input */}
             <Input
               id={"firstName"}
               className={"firstname"}
@@ -133,6 +153,7 @@ function UserPage() {
               disabled
             />
 
+            {/* Read-only last name input */}
             <Input
               id={"lastName"}
               className={"lastname"}
@@ -141,6 +162,7 @@ function UserPage() {
               disabled
             />
 
+            {/* Form action buttons */}
             <div className="modal__actions">
               <Button
                 isButton
@@ -156,11 +178,13 @@ function UserPage() {
               </Button>
             </div>
 
+            {/* Display error message if any */}
             {error && <p className="error">{error}</p>}
           </form>
         </Modal>
       </div>
 
+      {/* Account cards displaying user's bank accounts */}
       <AccountCard
         accountTitle={"Argent Bank Checking (x8349)"}
         accountAmount={"2,082.79"}

@@ -1,52 +1,41 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  loginAndFetchProfile,
-  clearError,
-  logout,
-} from "../../../slices/authSlice";
+import { loginAndFetchProfile, clearError } from "../../../slices/authSlice";
 import { Input, Checkbox, Button } from "../../ui";
 
+/**
+ * SignInForm component - handles user authentication with email and password
+ * Manages form state, validation, and redirects to user page upon successful login
+ * @returns {JSX.Element} A form with email/password inputs and submit functionality
+ */
 function SignInForm() {
+  // Redux hooks for dispatching actions and accessing state
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoading, error, isAuthenticated, user } = useSelector(
-    (state) => state.auth
-  );
+  // Extract loading state and error from auth slice
+  const { isLoading, error } = useSelector((state) => state.auth);
 
+  // Local state for form inputs
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  // Nettoyer l'erreur au montage du composant (rechargement de page)
+  // Clear any existing errors when component mounts
   useEffect(() => {
     dispatch(clearError());
-  }, []);
+  }, [dispatch]);
 
-  /*
-  // Auto-clear error après 5 secondes
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        dispatch(clearError());
-      }, 5000);
-
-      // Cleanup
-      return () => clearTimeout(timer);
-    }
-  }, [error, dispatch]);
-  */
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Nettoyer les erreur précédentes
+    // Clear any existing errors before attempting login
     dispatch(clearError());
 
-    // Dispatcher l'action de connexion
+    // Dispatch login action with form data
     const result = await dispatch(
       loginAndFetchProfile({
         email: formData.email,
@@ -54,21 +43,18 @@ function SignInForm() {
       })
     );
 
-    // Vérifier le résultat
+    // Navigate to user page if login is successful
     if (loginAndFetchProfile.fulfilled.match(result)) {
       navigate("/user");
     }
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
   return (
     <form onSubmit={handleSubmit}>
+      {/* Email input field */}
       <Input
         inputType={"email"}
-        id={"username"}
+        id={"email"}
         label={"Username"}
         className={"input-wrapper"}
         value={formData.email}
@@ -76,6 +62,7 @@ function SignInForm() {
         required
       />
 
+      {/* Password input field */}
       <Input
         inputType={"password"}
         id={"password"}
@@ -85,23 +72,24 @@ function SignInForm() {
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
 
+      {/* Remember me checkbox */}
       <Checkbox
         id={"remember-me"}
         className={"input-remember"}
         label={"Remember me"}
       />
 
+      {/* Submit button with loading state */}
       <Button
         isButton={true}
         buttonType={"submit"}
         className={"sign-in-button"}
-        // href={"/user"}
-        // children={"Sign In"}
         disabled={isLoading}
       >
         {isLoading ? "Connexion..." : "Sign In"}
       </Button>
 
+      {/* Display error message if any */}
       {error && <p className="error">{error}</p>}
     </form>
   );

@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./slices/authSlice";
 
-// Combiner tous vos reducers
+// Combine all reducers
 const rootReducer = combineReducers({
   auth: authReducer,
 });
@@ -16,6 +16,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+/**
+ * Redux store configuration with persistence support.
+ *
+ * This store is configured with a persisted reducer and custom middleware that ignores specific redux-persist actions from serializability checks to prevent warnings during state persistence operations.
+ *
+ * @type {import('@reduxjs/toolkit').EnhancedStore}
+ */
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

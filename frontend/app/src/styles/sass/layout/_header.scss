@@ -30,6 +30,10 @@
 .header__actions {
   display: flex;
   gap: 0.3em;
+
+  @media screen and (max-width: 500px) {
+    font-size: 0.8rem;
+  }
 }
 
 .header__action {

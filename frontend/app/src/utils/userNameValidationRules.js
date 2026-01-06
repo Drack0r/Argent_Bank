@@ -1,33 +1,45 @@
+/**
+ * Username validation rules configuration object.
+ * Contains an array of validation rules that check various username requirements.
+ * Each rule returns an empty string if validation passes, or an error message if it fails.
+ *
+ * @constant {Object} userNameValidationRules
+ * @property {ValidationRule[]} userName - Array of validation rules for username field
+ */
 const userNameValidationRules = {
   userName: [
     {
       validator: (value) => {
+        // Check if the username is not empty or only whitespace
         if (!value || value.trim() === "") {
-          return "Le nom d'utilisateur est requis";
+          return "Username is required";
         }
         return "";
       },
     },
     {
       validator: (value) => {
+        // Check minimum length requirement (at least 3 characters)
         if (value && value.length < 3) {
-          return "Le nom d'utilisateur doit contenir au moins 3 caractères";
+          return "Username must contain at least 3 characters";
         }
         return "";
       },
     },
     {
       validator: (value) => {
+        // Check maximum length limit (no more than 20 characters)
         if (value && value.length > 20) {
-          return "Le nom d'utilisateur ne peut pas dépasser 20 caractères";
+          return "Username cannot exceed 20 characters";
         }
         return "";
       },
     },
     {
       validator: (value) => {
+        // Check for valid characters (letters, numbers, hyphens, and underscores only)
         if (value && !/^[a-zA-Z0-9_-]+$/.test(value)) {
-          return "Le nom d'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores";
+          return "Username can only contain letters, numbers, hyphens, and underscores";
         }
         return "";
       },

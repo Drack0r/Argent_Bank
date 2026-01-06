@@ -1,9 +1,9 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -21,17 +21,17 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: '#/definitions/Login'
+            $ref: "#/definitions/Login"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
+            $ref: "#/definitions/LoginResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/signup:
     post:
@@ -45,17 +45,17 @@ paths:
           description: Signup Payload
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: "#/definitions/User"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Signup Successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/profile:
     get:
@@ -66,15 +66,15 @@ paths:
       summary: User Profile API
       description: API for fetching a user profile
       #produces:
-       # - application/json
+      # - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
     put:
       security:
@@ -89,17 +89,125 @@ paths:
           description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: "#/definitions/UserProfile"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
+          description: Internal Server Error
+  /accounts/{accountId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: List account transactions for a month
+      description: >
+        Returns all transactions for a given account.
+        If month is not provided, the current month is used.
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          type: integer
+          format: int64
+          description: Account identifier.
+        - name: month
+          in: query
+          required: false
+          type: string
+          description: Month to filter transactions (format YYYY-MM). Defaults to current month.
+          x-example: "2025-12"
+          pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+      responses:
+        "200":
+          description: Transactions retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid query parameters (e.g., month format)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Account not found
+        "500":
+          description: Internal Server Error
+  /transactions/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Get transaction details
+      description: Returns the details of a single transaction.
+      produces:
+        - application/json
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: integer
+          format: int64
+          description: Transaction identifier
+      responses:
+        "200":
+          description: Transaction retrieved successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update transaction metadata
+      description: >
+        Partially updates user-editable metadata of a transaction (category, note).
+        Fields omitted are left unchanged. At least one property must be provided.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: integer
+          format: int64
+          description: Transaction identifier.
+        - name: body
+          in: body
+          required: true
+          description: Fields to update.
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        "200":
+          description: Transaction updated successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid payload (empty body or no updatable fields provided)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
           description: Internal Server Error
 securityDefinitions:
   Bearer:
@@ -156,3 +264,68 @@ definitions:
     properties:
       userName:
         type: string
+  Transaction:
+    type: object
+    description: >
+      Represents a financial transaction associated with a user's bank account.
+      Transactions are immutable financial records, but certain metadata such as
+      category or personal notes can be updated by the user.
+    required:
+      - id
+      - accountId
+      - date
+      - description
+      - amount
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Id of concerned transaction.
+        x-example: 1
+      accountId:
+        type: integer
+        format: int64
+        description: Id of concerned account.
+        x-example: 1
+      date:
+        type: string
+        format: date-time
+        description: Date and time of the transaction in ISO 8601 format.
+        x-example: "2025-12-30T10:15:00+01:00"
+      description:
+        type: string
+        description: A short description of the transaction origin.
+        x-example: Golden Sun Bakery
+      amount:
+        type: number
+        format: float
+        description: The amount of transaction.
+        x-example: 10
+      type:
+        type: string
+        description: The type of transaction.
+        x-example: Electronic
+      category:
+        type: string
+        description: The category of transaction.
+        x-example: Food
+      note:
+        type: string
+        description: Optional user note for the transaction.
+        x-example: My personal note about this transaction.
+  TransactionUpdate:
+    type: object
+    additionalProperties: false
+    description: >
+      Schema used for partial updates of a transaction.
+      Intended to be used with PATCH operations.
+      Set to empty string to remove the note or category.
+    properties:
+      category:
+        type: string
+        description: Category of transaction.
+        x-example: Food
+      note:
+        type: string
+        description: A short note about transaction.
+        x-example: My personal note about this transaction.

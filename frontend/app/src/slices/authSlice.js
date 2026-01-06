@@ -5,7 +5,7 @@ import {
   updateUserProfile,
 } from "../services/api";
 
-// Thunk async pour le login
+// Async thunk for user login
 export const loginUserAsync = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
@@ -18,7 +18,7 @@ export const loginUserAsync = createAsyncThunk(
   }
 );
 
-// Thunk async pour récupérer le profil utilisateur
+// Async thunk for fetching user profile
 export const fetchUserProfileAsync = createAsyncThunk(
   "auth/fetchUserProfile",
   async (token, { rejectWithValue }) => {
@@ -31,16 +31,19 @@ export const fetchUserProfileAsync = createAsyncThunk(
   }
 );
 
-// Thunk combiné : login + récupération du profil
+// Async thunk that combines login and profile fetching in a single action
 export const loginAndFetchProfile = createAsyncThunk(
   "auth/loginAndFetchProfile",
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      // First, login the user
       const loginData = await loginUser(email, password);
       const token = loginData.token;
 
+      // Then fetch user profile data
       const userData = await fetchUserProfile(token);
 
+      // Return both token and user data
       return {
         token,
         user: userData,
@@ -51,7 +54,7 @@ export const loginAndFetchProfile = createAsyncThunk(
   }
 );
 
-// Thunk pour mettre à jour le profil utilisateur
+// Async thunk for updating user profile
 export const updateUserProfileAsync = createAsyncThunk(
   "auth/updateUserProfile",
   async ({ token, userData }, { rejectWithValue }) => {
@@ -64,30 +67,32 @@ export const updateUserProfileAsync = createAsyncThunk(
   }
 );
 
-// Slice d'authentification
+// Auth slice with initial state and reducers
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    token: null,
-    isAuthenticated: false,
-    isLoading: false,
-    error: null,
+    user: null, // User profile data
+    token: null, // Authentication token
+    isAuthenticated: false, // Authentication status
+    isLoading: false, // Loading state for async operations
+    error: null, // Error messages
   },
   reducers: {
+    // Clear all auth data on logout
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
       state.error = null;
     },
+    // Clear error messages
     clearError: (state) => {
       state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      // Login et récupération du profil
+      // Handle login and fetch profile action states
       .addCase(loginAndFetchProfile.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -106,7 +111,7 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
       })
-      // Récupération du profil seul
+      // Handle fetch user profile action states
       .addCase(fetchUserProfileAsync.pending, (state) => {
         state.isLoading = true;
       })
@@ -118,13 +123,14 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // Mise à jour du profil
+      // Handle update user profile action states
       .addCase(updateUserProfileAsync.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(updateUserProfileAsync.fulfilled, (state, action) => {
         state.isLoading = false;
+        // Merge updated data with existing user data
         state.user = { ...state.user, ...action.payload };
         state.error = null;
       })
@@ -135,5 +141,6 @@ const authSlice = createSlice({
   },
 });
 
+// Export actions and reducer
 export const { logout, clearError } = authSlice.actions;
 export default authSlice.reducer;
