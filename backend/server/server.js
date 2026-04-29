@@ -19,11 +19,7 @@ const PORT = process.env.PORT || 3001;
 // Connect to the database
 dbConnection();
 
-const allowedOrigins = [
-  "http://localhost:5173", // dev local
-  "https://ton-projet.vercel.app", // ← à mettre à jour après le déploiement Vercel
-  process.env.FRONTEND_URL, // variable d'env (recommandé)
-];
+const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
 
 // Handle CORS issues
 app.use(
