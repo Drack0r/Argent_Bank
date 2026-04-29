@@ -25,7 +25,16 @@ const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        process.env.FRONTEND_URL,
+      ];
+
+      // Accepte toutes les previews Vercel du projet
+      const isVercelPreview =
+        origin && origin.match(/https:\/\/argent-bank.*\.vercel\.app$/);
+
+      if (!origin || allowedOrigins.includes(origin) || isVercelPreview) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
