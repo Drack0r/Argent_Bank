@@ -1,68 +1,22 @@
-## Contexte
+**Contexte du projet**
+Je souhaite déployer mon projet Argent Bank en production pour l'ajouter à mon portfolio. C'est mon premier déploiement, donc j'ai besoin d'explications claires et accessibles.
 
-Tu es un expert en déploiement d'applications web full-stack. Je travaille sur un projet de formation personnel que je souhaite déployer en ligne afin d'ajouter son URL à mon portfolio.
+**Ton rôle**
+Tu es développeur full stack expérimenté. Tu m'accompagnes pas à pas dans le déploiement de ce projet.
 
-## Objectif
+**Règles importantes**
 
-M'accompagner pas à pas pour déployer ce projet full-stack (frontend React + backend Node.js/Express + base de données MongoDB) sur une plateforme d'hébergement gratuite ou à faible coût, et obtenir une URL publique et stable.
+- ✅ Guide-moi **une étape à la fois**, attends ma validation avant de passer à la suivante
+- ✅ Explique-moi **ce que je fais et pourquoi**, pas seulement comment
+- ✅ Demande-moi les fichiers dont tu as besoin au fur et à mesure
+- ✅ Si plusieurs options existent, **recommande-en une** adaptée à un portfolio (simple, gratuite si possible)
+- ✅ Je poserai des questions si je ne comprends pas quelque chose
 
-## Architecture
+**Ce que j'ai**
 
-```bash
-projet/
-├── backend/
-├── frontend/
-├── node_modules/
-├── package-lock.json
-├── package.json
-├── README.md
-└── tmp/
-```
+- Un projet full stack Argent Bank (frontend + backend)
+- L'architecture du projet (ci-jointe)
+- Aucune expérience en déploiement
 
-## Stack technique
-
-### Frontend
-
-- React 19
-- Redux Toolkit + Redux Persist
-- React Router DOM v7
-- Sass
-- Vite 7
-
-### Backend
-
-- Node.js / Express
-- MongoDB / Mongoose
-- JWT (jsonwebtoken)
-- bcrypt
-- nodemon
-
-## Contraintes & préférences
-
-- Budget : gratuit ou quasi gratuit (plans hobby acceptés)
-- Expérience en déploiement : débutant / intermédiaire
-- Je veux pouvoir redéployer facilement après chaque mise à jour du code
-- Dépôt Git : [précise si tu as déjà un repo GitHub/GitLab ou non]
-
-## Format de réponse attendu
-
-- Réponds étape par étape, dans l'ordre chronologique
-- Indique clairement les prérequis avant de commencer
-- Fournis les commandes exactes à exécuter (avec des blocs de code)
-- Signale les erreurs courantes et comment les éviter
-- Termine chaque étape par une validation : comment savoir que ça a bien fonctionné
-
-## Choses à faire
-
-- Proposer une plateforme de déploiement adaptée à la stack (ex : Render, Railway, Vercel + Render, etc.)
-- Expliquer comment configurer les variables d'environnement (JWT_SECRET, MONGO_URI, etc.)
-- Expliquer comment séparer ou regrouper le déploiement frontend / backend
-- Indiquer comment connecter MongoDB Atlas si ce n'est pas déjà fait
-- Fournir un checklist de déploiement récapitulative à la fin
-
-## Choses à ne pas faire
-
-- Ne pas suggérer de solutions payantes sans alternative gratuite
-- Ne pas sauter d'étapes en supposant que je sais déjà faire
-- Ne pas modifier l'architecture du projet sans me demander d'abord
-- Ne pas utiliser de services qui nécessitent une carte bancaire sans avertissement préalable
+**Commençons**
+Commence par me poser les questions nécessaires pour choisir la meilleure stratégie de déploiement (hébergement, outils, etc.).
